@@ -3,6 +3,7 @@ import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class Main{
 
@@ -21,9 +22,15 @@ public class Main{
     private static final Pattern NOTEPAD_BAR = new Pattern(Main.class.getResource("notepad-bar.jpg"));
     private static final Pattern NOTEPAD_FIELD = new Pattern(Main.class.getResource("notepad-field.jpg"));
 
-    public static void main(String[] args) throws FindFailed {
-        String text = openFolder();
-        writeNotepad(text.isBlank() ? "Tive problema para achar o texto, mas aqui vai um qualquer" : text);
+    public static void main(String[] args){
+        List<Student> students = new Excel().getListStudent();
+        StringBuilder text = new StringBuilder();
+
+        for (Student student : students){
+            text.append(student.getText()).append("\n");
+        }
+
+        writeNotepad(String.format("%s",text));
     }
 
     public static void writeNotepad(String text){
@@ -36,7 +43,7 @@ public class Main{
             screen.wait(NOTEPAD_BAR.similar(similar),4);
             screen.wait(NOTEPAD_FIELD.similar(similar),2).click();
 
-            screen.write(text);
+            screen.paste(text);
         }catch (FindFailed e){
             e.getStackTrace();
         }

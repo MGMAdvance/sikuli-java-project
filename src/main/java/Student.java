@@ -3,7 +3,7 @@ public class Student {
     private final double firstTest;
     private final double secondTest;
 
-    public Student(String name, int firstTest, int secondTest){
+    public Student(String name, double firstTest, double secondTest){
         this.name = name;
         this.firstTest = firstTest;
         this.secondTest = secondTest;
@@ -27,6 +27,13 @@ public class Student {
 
     public boolean isApproved(){
         return getAverage() >= 5;
+    }
+
+    public String getText(){
+        if (isApproved())
+            return name + " passou com " + getAverage();
+
+        return name + " não passou com " + getAverage();
     }
 
     @Override
