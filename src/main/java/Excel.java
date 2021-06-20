@@ -16,7 +16,16 @@ public class Excel {
     private static final URL excel = Excel.class.getResource("notas.xls");
 
     public Excel(){
+        prepareValues();
+    }
+
+    public List<Student> getListStudent() {
+        return listStudent;
+    }
+
+    public void prepareValues(){
         try {
+            assert excel != null;
             FileInputStream file = new FileInputStream(excel.getFile());
 
             HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -49,9 +58,5 @@ public class Excel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<Student> getListStudent() {
-        return listStudent;
     }
 }
